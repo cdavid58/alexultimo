@@ -1,0 +1,220 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row g-3">
+    <div class="col-xl-4 order-xl-1">
+      <div class="card">
+        <div class="card-header bg-light btn-reveal-trigger d-flex flex-between-center">
+          <h5 class="mb-0">Resumen del pedido </h5>
+          <a class="btn btn-link btn-sm btn-reveal text-600" href="{% url 'Shopping_Cart' %}">
+            <span class="fas fa-pencil-alt"></span>
+          </a>
+        </div>
+        <div class="card-body">
+          <table class="table table-borderless fs--1 mb-0">
+            {% for i in cart %}
+              <tr class="border-bottom">
+                <th class="ps-0 pt-0">{{i.product}}
+                  <div class="text-400 fw-normal fs--2">{{i.description}}</div>
+                </th>
+                <th class="pe-0 text-end pt-0">${{i.total}}</th>
+                <th class="pe-0 text-end pt-0">${{i.total}}</th>
+              </tr>
+            {% endfor %}
+            <tr class="border-bottom">
+              <th class="ps-0">Subtotal</th>
+              <th class="pe-0 text-end">${{subtotal}}</th>
+            </tr>
+            <tr class="border-bottom">
+              <th class="ps-0">Cupon: <span class="text-success">N/A</span></th>
+              <th class="pe-0 text-end">0</th>
+            </tr>
+            <tr class="border-bottom">
+              <th class="ps-0">Envio</th>
+              <th class="pe-0 text-end">${{shipping_price}}</th>
+            </tr>
+            <tr>
+              <th class="ps-0 pb-0">Total</th>
+              <th class="pe-0 text-end pb-0">${{total}}</th>
+            </tr>
+          </table>
+        </div>
+        <div class="card-footer d-flex justify-content-between bg-light">
+          <div class="fw-semi-bold">Total a Pagar</div>
+          <div class="fw-bold">${{total}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8">
+      <div class="card mb-3">
+        <div class="card-header bg-light">
+          <div class="row flex-between-center">
+            <div class="col-sm-auto">
+              <h5 class="mb-2 mb-sm-0">Tu Dirección de Envío </h5>
+            </div>
+            <div class="col-sm-auto">
+              <a class="btn btn-falcon-default btn-sm btn_wompi" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#error-modal_address">
+                <span class="fas fa-plus me-2" data-fa-transform="shrink-2"></span>
+                Agrega nueva dirección 
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            {% for i in sa %}
+              <div class="col-md-6 mb-3 mb-md-0">
+                <div class="form-check mb-0 custom-radio radio-select">
+                  <input class="form-check-input address" id="{{i.pk}}" type="radio" name="clientName" checked="checked" />
+                  <label class="form-check-label mb-0 fw-bold d-block" for="address-1">
+                    Recibe: {{i.receiving_user}}
+                    <span class="radio-select-content">
+                      <span> 
+                        {{i.address}}
+                        <span class="d-block mb-0 pt-2">
+                          {{i.phone}}
+                        </span>
+                      </span>
+                    </span>
+                  </label>
+                  <a class="fs--1" href="#!">Edit</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">Método de pago</h5>
+        </div>
+        <div class="card-body">
+          <form method="post">{% csrf_token %}
+            <div class="form-check d-flex align-items-center">
+              <input class="form-check-input wompi" checked type="radio" value="" id="paypal" name="payment-method" />
+              <label class="form-check-label mb-0 ms-2" for="paypal"><img src="https://combured.co/wp-content/uploads/Logo-Wompi-B.png" height="40" alt="" />
+              </label>
+            </div>
+            <div class="border-dashed-bottom my-5"></div>
+            <div class="row">
+              <div class="col-md-7 col-xl-12 col-xxl-7 px-md-3 mb-xxl-0 position-relative">
+                <div class="d-flex"><img class="me-3" src="{% static 'assets/img/icons/shield.png' %}" alt="" width="60" height="60" />
+                  <div class="flex-1">
+                    <h5 class="mb-2">Protección al consumidor </h5>
+                    <div class="form-check mb-0">
+                      <input class="form-check-input" id="protection-option-1" type="checkbox" checked="checked" />
+                      <label class="form-check-label mb-0" for="protection-option-1"> <strong>Reembolso completo </strong>sino <br class="d-none d-md-block d-lg-none" />recibe tu pedido</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" id="protection-option-2" type="checkbox" checked="checked" />
+                      <label class="form-check-label mb-0" for="protection-option-2"> <strong>Reembolso total o parcial, </strong>si el producto no es como se describe en los detalles</label>
+                    </div><a class="fs--1 ms-3 ps-2" href="#!">Aprende más<span class="fas fa-caret-right ms-1" data-fa-transform="down-2">    </span></a>
+                  </div>
+                </div>
+                <div class="vertical-line d-none d-md-block d-xl-none d-xxl-block"> </div>
+              </div>
+              <div class="col-md-5 col-xl-12 col-xxl-5 ps-lg-4 ps-xl-2 ps-xxl-5 text-center text-md-start text-xl-center text-xxl-start">
+                <div class="border-dashed-bottom d-block d-md-none d-xl-block d-xxl-none my-4"></div>
+                <div class="fs-2 fw-semi-bold">Total: <span class="text-primary">${{total}}</span></div>
+                <button class="btn btn-success mt-3 px-5 send_pay" type="submit">Confirmar &amp; Pagar</button>
+                <p class="fs--1 mt-3 mb-0">Al hacer clic en el botón <strong>Confirmar & Pagar </strong>acepta los <a href="#!"> Términos y condiciones </a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">Launch demo modal</button> -->
+<div class="modal fade" id="error-modal_address" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+    <div class="modal-content position-relative">
+      <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+          <h4 class="mb-1" id="modalExampleDemoLabel">Agrege una dirección</h4>
+        </div>
+        <div class="p-4 pb-0">
+          <form method="post">{% csrf_token %}
+            <div class="mb-3">
+              <label class="col-form-label" for="recipient-name">Quien Recibe:</label>
+              <input class="form-control" name="receiving_user" id="recipient-name" type="text" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label" for="message-text">Direccion:</label>
+              <input class="form-control" id="recipient-name" name="address_user" type="text" />
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label" for="message-text">Número de teléfono:</label>
+              <input class="form-control" id="recipient-name" name="phone_user" type="number" />
+            </div>
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Agregar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block script %}
+  <script>
+    $(document).ready(function(){
+
+      $(".address").on('click',function(){
+        id = this.id
+        $.ajax({
+          data:{'id':id},
+          success:function(argument) {
+            // body...
+          }
+        })
+      })
+
+      $(".send_pay").click(function(e){
+        e.preventDefault()
+        if($(".wompi").prop( "checked" )){
+          var checkout = new WidgetCheckout({
+            currency: 'COP',
+            amountInCents: parseFloat("{{total}}")*100,
+            reference: 'AD{{referens}}',
+            publicKey: 'pub_test_Zs0LVNeaLOG440kKSAp0YRXBO8M0VBP0',
+            redirectUrl: 'https://transaction-redirect.wompi.co/check', // Opcional
+            taxInCents: { // Opcional
+              vat: 1900,
+              consumption: 800
+            },
+            customerData: { // Opcional
+              email:'{{buyer.email}}',
+              fullName: '{{buyer.first_name}} {{buyer.last_name}}',
+              phoneNumber: '{{buyer.phone}}',
+              phoneNumberPrefix: '+57'
+            }
+          })
+          checkout.open(function ( result ) {
+            var transaction = result.transaction
+            console.log('Transaction ID: ', transaction.id)
+            console.log('Transaction object: ', transaction)
+            if(transaction.status == 'APPROVED'){
+              location.href = "{{url}}"
+            }
+          })
+        }
+      })
+
+    })
+  </script>
+
+{% endblock %}

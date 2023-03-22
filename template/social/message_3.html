@@ -1,0 +1,51 @@
+{% load static %}
+{% for j in data %}
+  {% if i.user.pk == j.user_carmen %}
+    {% if j.user_david != request.session.pk_user %}
+      <div class="d-flex p-3">
+        <div class="avatar avatar-l me-2">
+          <img class="rounded-circle" src="{{i.user.img_profile.url}}" alt="" />
+        </div>
+        <div class="flex-1">
+          <div class="w-xxl-75">
+            <div class="hover-actions-trigger d-flex align-items-center">
+              <div class="chat-message bg-200 p-2 rounded-2">{{j.message}}</div>
+              <ul class="hover-actions position-relative list-inline mb-0 text-400 ms-2">
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Forward"><span class="fas fa-share"></span></a></li>
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><span class="fas fa-archive"></span></a></li>
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></a></li>
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><span class="fas fa-trash-alt"></span></a></li>
+              </ul>
+            </div>
+            <div class="text-400 fs--2"><span>{{i.time}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="d-flex p-3">
+        <div class="flex-1 d-flex justify-content-end">
+          <div class="w-100 w-xxl-75">
+            <div class="hover-actions-trigger d-flex flex-end-center">
+              <ul class="hover-actions position-relative list-inline mb-0 text-400 me-2">
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Forward"><span class="fas fa-share"></span></a></li>
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><span class="fas fa-archive"></span></a></li>
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></a></li>
+                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><span class="fas fa-trash-alt"></span></a></li>
+              </ul>
+              <div class="bg-primary text-white p-2 rounded-2 chat-message light">
+                <p class="mb-0">{{j.message}}</p>
+                <a href="../assets/img/chat/1.jpg" data-gallery="gallery-3">
+                  <img class="rounded" src="../assets/img/chat/1.jpg" alt="" width="150">
+                </a>
+
+              </div>
+            </div>
+            <div class="text-400 fs--2 text-end">{{i.time}}<span class="fas fa-check ms-2 text-success"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,479 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3 btn-reveal-trigger">
+        <div class="card-header position-relative min-vh-25 mb-8">
+          <div class="cover-image">
+              <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url('{{user.img_cover.url}}');"></div>
+              <form enctype="multipart/form-data" method="post" id="form_cover" action="{% url 'Change_Photo_Cover' %}">{% csrf_token %}
+                <input class="d-none upload-cover-image" name="photo_cover" id="upload-cover-image" type="file" />
+                <label class="cover-image-file-input" for="upload-cover-image">
+                  <span class="fas fa-camera me-2"></span>
+                  <span>Cambiar foto de portada</span>
+                </label>
+              </form>
+          </div>
+
+
+
+          <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle">
+            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
+
+              <img src="{{user.img_profile.url}}" width="200" alt="" data-dz-thumbnail="data-dz-thumbnail" />
+              <form enctype="multipart/form-data" method="post" id="form_photo_profile" action="{% url 'Change_Photo_Profile' %}">{% csrf_token %}
+
+                <input class="d-none profile_photo" id="profile-image" src="" name="photo_profile" type="file">
+                
+
+                <label class="mb-0 overlay-icon d-flex flex-center" for="profile-image">
+                  <span class="bg-holder overlay overlay-0"></span>
+                  <span class="z-index-1 text-white dark__text-white text-center fs--1">
+                    <span class="fas fa-camera"></span>
+                    <span class="d-block">Actualizar</span>
+                  </span>
+                </label>
+
+              </form>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-0">
+    <div class="col-lg-8 pe-lg-2">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="mb-0">Configuración de perfil</h5>
+        </div>
+        <div class="card-body bg-light">
+          <form class="row g-3 information_profile">
+            <div class="col-lg-6">
+              <label class="form-label" for="first-name">Nombre</label>
+              <input class="form-control" id="first-name" name="name" type="text" value="{{user.first_name}}" />
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label" for="last-name">Apellido</label>
+              <input class="form-control" id="last-name" type="text" name="lastname" value="{{user.last_name}}" />
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label" for="email1">Correo electrónico</label>
+              <input class="form-control" id="email1" type="text" name="email" value="{{user.email}}" />
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label" for="email2">Teléfono</label>
+              <input class="form-control" id="email2" type="text" name="phone" value="{{user.phone}}" />
+            </div>
+            <div class="col-lg-12">
+              <label class="form-label" for="email3">Profesión</label>
+              <input class="form-control" id="email3" type="text" name="profe" value="Software Engineer" />
+            </div>
+            <div class="col-lg-12">
+              <label class="form-label" for="intro">Descripción</label>
+              <textarea class="form-control" id="intro" cols="30" name="description" rows="13">{{user.description}}</textarea>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+              <button class="btn btn-primary information_profile_button" type="submit">Actualizar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="mb-0">Experiencia Laboral</h5>
+        </div>
+        <div class="card-body bg-light">
+          <a class="mb-4 d-block d-flex align-items-center" href="#experience-form1" data-bs-toggle="collapse" aria-expanded="false" aria-controls="experience-form1">
+            <span class="circle-dashed">
+              <span class="fas fa-plus"></span>
+            </span>
+            <span class="ms-3">Agregar nueva experiencia laboral</span>
+          </a>
+          <div class="collapse" id="experience-form1">
+            <form class="row">
+              <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="company">Company</label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm" id="company" type="text" />
+              </div>
+              <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="position">Position</label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm" id="position" type="text" />
+              </div>
+              <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="city">City </label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm" id="city" type="text" />
+              </div>
+              <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="exp-description">Description </label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <textarea class="form-control form-control-sm" id="exp-description" rows="3"> </textarea>
+              </div>
+              <div class="col-9 col-sm-7 offset-3 mb-3">
+                <div class="form-check mb-0 lh-1">
+                  <input class="form-check-input" type="checkbox" id="experience-current" checked="checked" />
+                  <label class="form-check-label mb-0" for="experience-current">I currently work here
+                  </label>
+                </div>
+              </div>
+              <div class="col-3 text-lg-end">
+                <label class="form-label" for="experience-form2">From </label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm text-500 datetimepicker" id="experience-form2" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
+              </div>
+              <div class="col-3 text-lg-end">
+                <label class="form-label" for="experience-to">To </label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm text-500 datetimepicker" id="experience-to" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
+              </div>
+              <div class="col-9 col-sm-7 offset-3">
+                <button class="btn btn-primary" type="button">Save</button>
+              </div>
+            </form>
+            <div class="border-dashed-bottom my-4"></div>
+          </div>
+          {% for i in we %}
+            <div class="d-flex"><a href="#!"> <img class="img-fluid" src="{% static 'assets/img/logos/g.png' %}" alt="" width="56" /></a>
+              <div class="flex-1 position-relative ps-3">
+                <h6 class="fs-0 mb-0">{{i.cargo}}<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
+                </h6>
+                <p class="mb-1"> <a href="#!">{{i.company}}</a></p>
+                <p class="text-1000 mb-0">{{i.froms}} - {{i.to}}</p>
+                <p class="text-1000 mb-0">California, USA</p>
+                <div class="border-dashed-bottom my-3"></div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="card mb-3 mb-lg-0">
+        <div class="card-header">
+          <h5 class="mb-0">Estudios</h5>
+        </div>
+        <div class="card-body bg-light"><a class="mb-4 d-block d-flex align-items-center" href="#education-form" data-bs-toggle="collapse" aria-expanded="false" aria-controls="education-form"><span class="circle-dashed"><span class="fas fa-plus"></span></span><span class="ms-3">Agregar nuevo estudio</span></a>
+          <div class="collapse" id="education-form">
+            <form class="row" method="post">{% csrf_token %}
+              <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="school">Instituto</label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm" name="school" id="school" type="text" />
+              </div>
+              <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="degree">Titulo</label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm" id="degree" name="titulo" type="text" />
+              </div>
+              <!-- <div class="col-3 mb-3 text-lg-end">
+                <label class="form-label" for="field">Field</label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm" id="field" type="text" />
+              </div> -->
+              <div class="col-3 text-lg-end">
+                <label class="form-label" for="edu-form3">Año Desde </label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm datetimepicker" name="froms" id="edu-form3" type="text" placeholder="1999" />
+              </div>
+              <div class="col-3 text-lg-end">
+                <label class="form-label" for="edu-to">Año Hasta</label>
+              </div>
+              <div class="col-9 col-sm-7 mb-3">
+                <input class="form-control form-control-sm datetimepicker" id="edu-to" name="to" type="text" placeholder="1999" />
+              </div>
+              <div class="col-9 col-sm-7 offset-3">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+              </div>
+            </form>
+            <div class="border-dashed-bottom my-3"></div>
+          </div>
+          {% for i in education %}
+            <div class="d-flex">
+              <a href="#!">
+                <div class="avatar avatar-3xl">
+                  <div class="avatar-name rounded-circle">
+                    <span>SU</span>
+                  </div>
+                </div>
+              </a>
+              <div class="flex-1 position-relative ps-3">
+                <h6 class="fs-0 mb-0"> <a href="#!">{{i.school}}<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></a></h6>
+                <p class="mb-1">{{i.titulo}}</p>
+                <p class="text-1000 mb-0">{{i.froms}} - {{i.to}} • 4 yrs</p>
+                <p class="text-1000 mb-0">California, USA</p>
+                <div class="border-dashed-bottom my-3"></div>
+              </div>
+            </div>
+          {% endfor %}
+          <!-- <div class="d-flex"><a href="#!"> <img class="img-fluid" src="{% static 'assets/img/logos/staten.png' %}" alt="" width="56" /></a>
+            <div class="flex-1 position-relative ps-3">
+              <h6 class="fs-0 mb-0"> <a href="#!">Staten Island Technical High School<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></a></h6>
+              <p class="mb-1">Higher Secondary School Certificate, Science</p>
+              <p class="text-1000 mb-0">2008 - 2010 &bull; 2 yrs</p>
+              <p class="text-1000 mb-0">New York, USA</p>
+              <div class="border-dashed-bottom my-3"></div>
+            </div>
+          </div>
+          <div class="d-flex"><a href="#!"> <img class="img-fluid" src="{% static 'assets/img/logos/tj-heigh-school.png' %}" alt="" width="56" /></a>
+            <div class="flex-1 position-relative ps-3">
+              <h6 class="fs-0 mb-0"> <a href="#!">Thomas Jefferson High School for Science and Technology<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></a></h6>
+              <p class="mb-1">Secondary School Certificate, Science</p>
+              <p class="text-1000 mb-0">2003 - 2008 &bull; 5 yrs</p>
+              <p class="text-1000 mb-0">Alexandria, USA</p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 ps-lg-2">
+      <div class="sticky-sidebar">
+        <div class="card mb-3 overflow-hidden">
+          <div class="card-header">
+            <h5 class="mb-0">Configuraciones de la cuenta</h5>
+          </div>
+          <div class="card-body bg-light">
+            <h6 class="fw-bold">¿Quién puede ver tu perfil?<span class="fs--2 ms-1 text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Solo el grupo de personas seleccionadas puede ver tu perfil"><span class="fas fa-question-circle"></span></span></h6>
+            <div class="ps-2">
+              <div class="form-check mb-0 lh-1">
+                <input class="form-check-input show_profile" type="radio" value="1" id="1" {% if syp.alls %}checked="checked"{% endif %} name="view-settings" />
+                <label class="form-check-label mb-0" for="my-followers">Todos
+                </label>
+              </div>
+              <div class="form-check mb-0 lh-1">
+                <input class="form-check-input show_profile" type="radio" value="2" id="2" {% if syp.followers %}checked="checked"{% endif %} name="view-settings" />
+                <label class="form-check-label mb-0" for="my-followers">Mis seguidores
+                </label>
+              </div>
+              <div class="form-check mb-0 lh-1">
+                <input class="form-check-input show_profile" type="radio" value="3" id="3" {% if syp.only_me %}checked="checked"{% endif %} name="view-settings" />
+                <label class="form-check-label mb-0" for="my-followers">Solo yo
+                </label>
+              </div>
+            </div>
+            <h6 class="mt-2 fw-bold">¿Quién puede etiquetarte?<span class="fs--2 ms-1 text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Solo el grupo de personas seleccionadas puede etiquetarte"><span class="fas fa-question-circle"></span></span></h6>
+            <div class="ps-2">
+              <div class="form-check mb-0 lh-1">
+                <input class="form-check-input tag" type="radio" {% if ty.alls %}checked="checked"{% endif %} value="1" id="1" name="tag-settings" />
+                <label class="form-check-label mb-0" for="tag-everyone">Todo el mundo
+                </label>
+              </div>
+              <div class="form-check mb-0 lh-1 tag">
+                <input class="form-check-input tag" type="radio" {% if ty.group %}checked="checked"{% endif %} value="2" id="2" name="tag-settings" />
+                <label class="form-check-label mb-0" for="tag-everyone">Solo grupos
+                </label>
+              </div>
+            </div>
+            <div class="border-dashed-bottom my-3"></div>
+            <div class="form-check mb-0 lh-1">
+              <input class="form-check-input othres" id="1" type="checkbox" {% if as.show_followers %}checked="checked"{% endif %} id="userSettings1"/>
+              <label class="form-check-label mb-0" for="userSettings1">Permita que los usuarios muestren a sus seguidores
+              </label>
+            </div>
+            <div class="form-check mb-0 lh-1">
+              <input class="form-check-input othres" id="2" type="checkbox" {% if as.show_emai %}checked="checked"{% endif %} id="userSettings2"/>
+              <label class="form-check-label mb-0" for="userSettings2">Permitir que los usuarios muestren su correo electrónico
+              </label>
+            </div>
+            <div class="form-check mb-0 lh-1">
+              <input class="form-check-input othres" id="3" type="checkbox" {% if as.show_experiences %}checked="checked"{% endif %} id="userSettings3" />
+              <label class="form-check-label mb-0" for="userSettings3">Permita que los usuarios muestren sus experiencias
+              </label>
+            </div>
+            <div class="border-dashed-bottom my-3"></div>
+            <div class="form-check form-switch mb-0 lh-1">
+              <input class="form-check-input othres" id="4" type="checkbox" {% if as.show_number_phone %}checked="checked"{% endif %} id="flexSwitchCheckDefault" />
+              <label class="form-check-label mb-0" for="flexSwitchCheckDefault">Haz que tu número de teléfono sea visible
+              </label>
+            </div>
+            <div class="form-check form-switch mb-0 lh-1">
+              <input class="form-check-input othres" id="5" type="checkbox" {% if as.show_follow_you %}checked="checked"{% endif %} id="flexSwitchCheckChecked" />
+              <label class="form-check-label mb-0" for="flexSwitchCheckChecked">Permitir que el usuario te siga
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Configuración de facturación</h5>
+          </div>
+          {% if wallet > 0 %}
+            <div class="card-body bg-light border-top">
+              <h5>Pago</h5>
+              <p class="fs-0"></p><a class="btn btn-falcon-default btn-sm payment" href="#!">Solicitar Pago </a>
+            </div>
+          {% endif %}
+          <div class="card-body bg-light border-top">
+            <h5>Agregar Propiedad</h5><p class="fs-0"></p>
+            <a class="btn btn-falcon-default btn-sm" href="{% url 'Create_Ads' %}" target="_blank">Agregar Propiedad </a>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Cambia la contraseña</h5>
+          </div>
+          <div class="card-body bg-light">
+            <form>
+              <div class="mb-3">
+                <label class="form-label" for="old-password">Contraseña anterior</label>
+                <input class="form-control old-password" id="old-password" autocomplete="false" type="password" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="new-password">Nueva contraseña</label>
+                <input class="form-control" id="new-password" type="password" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="confirm-password">Confirmar contraseña</label>
+                <input class="form-control" id="confirm-password" type="password" />
+              </div>
+              <button class="btn btn-primary d-block w-100 update_password" type="submit">Actualiza contraseña</button>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Zona peligrosa</h5>
+          </div>
+          <div class="card-body bg-light">
+            <h5 class="fs-0">Desactivar esta cuenta</h5>
+            <p class="fs--1">Una vez que desactivas una cuenta, deberas solicitar la de nuevo. Por favor, esta seguro(a).</p><a class="btn btn-falcon-danger d-block" href="{% url 'Disable_Account' %}">Desactivar Cuenta</a>
+            <div class="border-dashed-bottom my-4"></div>
+            <h5 class="fs-0">Eliminar esta cuenta</h5>
+            <p class="fs--1">Una vez que eliminas una cuenta, no hay vuelta atrás. Por favor, esté seguro.</p><a class="btn btn-falcon-danger d-block" href="{% url 'Delete_Account' %}">Desactivar Cuenta</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+
+  <script>
+    $(document).ready(function(){
+
+      $(".payment").click(function(){
+        $.ajax({
+          url:"{% url 'Payment' %}",
+          data:{'value':true},
+          success:function(data){
+            location.reload(true)
+          }
+        })
+      })
+
+
+      $("#upload-cover-image").change(function(){
+        $("#form_cover").submit();
+      });
+
+      $("#profile-image").change(function(){
+        $("#form_photo_profile").submit();
+      });
+
+      $(".information_profile_button").click(function(e) {
+        e.preventDefault()
+        $.ajax({
+          url:'{% url "update_information_person" %}',
+          data:$('.information_profile').serialize(),
+          success:function(data){
+            $.notify("Actualización Exitosa", "success");
+          }
+        })
+      })
+
+      $(".show_profile").on('click',function(){
+        id = this.id
+        $.ajax({
+          url: "{% url 'Update_See_Your_Profile' %}",
+          data:{'value':id},
+          success:function(data){
+            $.notify("Actualización Exitosa", "success")
+          }
+        })
+      })
+
+      $('.tag').on('click',function(){
+        id = this.id
+        $.ajax({
+          url: "{% url 'Update_Tag_You' %}",
+          data:{'value':id},
+          success:function(data){
+            $.notify("Actualización Exitosa", "success")
+          }
+        })
+      })
+
+      $(".othres").on('click',function(){
+        id = this.id
+        $.ajax({
+          url: "{% url 'Update_Account_Settings' %}",
+          data:{'value':id},
+          success:function(data){
+            $.notify("Actualización Exitosa", "success")
+          }
+        })
+      })
+
+      function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function time_sleep() {
+            for (let i = 0; i < 2; i++) {
+                console.log(`Waiting ${i} seconds...`);
+                await sleep(i * 1000);
+            }
+            location.href = '{% url "Login" %}'
+        }
+
+      $(".update_password").click(function(e){
+        e.preventDefault()
+        new_pass = $("#new-password").val()
+        if($("#confirm-password").val() === new_pass){
+          $.ajax({
+            url:"{% url 'Update_Password' %}",
+            data:{'old_pass':$("#old-password").val(), "new_pass":new_pass},
+            success:function(data){
+              _ = data.split(',')
+              if(data.includes('error')){
+                $.notify(_[0],_[1])
+                $("#old-password").val('')
+                $("#new-password").val('')
+                $("#confirm-password").val('')
+                $("#old-password").focus()  
+              }
+              else{
+                $.notify(_[0],_[1])
+                time_sleep()
+              }
+              
+            }
+          })
+        }
+        else{
+          console.log('incorrecto')
+        }
+      })
+
+
+    })
+
+  </script>
+
+{% endblock %}

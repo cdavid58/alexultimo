@@ -1,0 +1,317 @@
+{% extends '../base.html' %}
+{% block content %}
+<style>
+  .border{
+    border: 5px white solid;
+    box-shadow: 2px 2px 1px yellow;
+  }
+</style>
+<div id="type_home">
+  {% include './type_home.html' %}
+</div>
+
+<div id="type_accommodation" style="display: none;">
+  {% include './type_accommodation.html' %}
+</div>
+
+
+
+<div id="info_1" style="display: none;">
+  {% include './info_1.html' %}
+</div>
+
+<div id="elements" style="display: none;">
+  {% include './elements.html' %}
+</div>
+
+<div id="photos" style="display: none;">
+  {% include './photos.html' %}
+</div>
+
+<div id="title-home" style="display: none;">
+  {% include './title_home.html' %}
+</div>
+
+<div id="description-home" style="display: none;">
+  {% include './description.html' %}
+</div>
+
+
+<div id="end-process" style="display: none;">
+  {% include './end_process.html' %}
+</div>
+
+
+<div id="select-resident" style="display: none;">
+  {% include './select_resident.html' %}
+</div>
+
+<div id="price" style="display: none;">
+  {% include './price.html' %}
+</div>
+
+<div id="address_house" style="display: none;">
+  {% include './address.html' %}
+</div>
+
+{% endblock %}
+{% block script %}
+<script>
+  Dropzone.options.myDropzone = { // camelized version of the `id`
+    paramName: "file", // The name that will be used to transfer the file
+    maxFilesize: 2, // MB
+    accept: function(file, done) {
+      extn = file.name.split('.')[1].toLowerCase()
+      if (extn !== "jpg" && extn !== 'png' && extn !== "jpeg" ) {
+        done("Documento no soportado");
+      }
+      else { done(); }
+    }
+  };
+
+  $("#myDropzone").dropzone({ url: "{% url 'Gallery' %}" });
+</script>
+<script>
+  $(document).ready(function(){
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      por = parseInt(200) / 100
+      return Math.floor((Math.random() * (max - min) + min) * por); // The maximum is exclusive and the minimum is inclusive
+    }
+
+    price = {
+
+    }
+    start_1 = parseInt('{{start_1}}')
+    start_2 = parseInt('{{start_2}}')
+    start_3 = parseInt('{{start_3}}')
+    start_4 = parseInt('{{start_4}}')
+    $("#price_start").text('$'+getRandomInt(start_1, start_2).toString());
+    $(".price_value").val($("#price_start").text())
+    $("#price_end").text(getRandomInt(start_3, start_4))
+
+
+    $('.link_card').on('click',function(){
+      id = this.id
+      $.ajax({
+        data:{'id':id},
+        success:function(e){
+          if(e == 'True'){
+            $("#type_home").css('display','none')
+            $("#type_accommodation").css('display','block')
+          }else{
+            $.gritter.add({
+                title: 'ALERTA',
+                text: 'Esta completando los datos de la ultima propiedad que registro',
+                time:'13000'
+            });
+            $("#type_home").css('display','none')
+            $("#type_accommodation").css('display','block')
+          }
+        }
+      })
+    })
+    n = 0
+    $("#area").keydown(function(e){
+      code = e.keyCode
+      console.log(code === 8)
+      if(code === 8){
+        if(n > 0){
+          $("#count_letter").text(n -= 1)
+        }
+      }
+      if(n < 32 && code !== 8){
+        $("#count_letter").text(n += 1)
+      }
+
+
+    })
+
+    function Update_Information(){
+      $.ajax({
+        url:"{% url 'Update_Informations' %}",
+        data: {'room':$(".2").text(),'beds':$(".3").text(),'resident':$(".1").text(),'bathrooms':$(".4").text()}
+      })
+    }
+
+    $(".plus").on('click',function(){
+      id = this.id
+      number = parseInt($("."+id).text())
+      $("."+id).text(number + 1)
+      Update_Information()
+    })
+
+    $(".less").on('click',function(){
+      id = this.id
+      number = parseInt($("."+id).text())
+      $("."+id).text(number - 1)
+      Update_Information()
+    })
+
+    $(".response_question").on('click',function() {
+      id = this.id
+      $.ajax({
+        url:"{% url 'Create_Hosting_Space' %}",
+        data:{'id':id},
+        success:function(e){
+          if(e == 'True'){
+            $("#type_accommodation").css('display','none')
+            $("#address_house").css('display','block')
+          }
+        }
+      })
+    })
+
+    function e(texto) {
+      return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+    }
+
+    $(".save_address").click(function(){
+      if(e($(".departament").val()).toLowerCase().includes('antioquia')){
+        if(e($(".city").val()).toLowerCase().includes("medellin")){
+          $.ajax({
+            url:"{% url 'Save_Address' %}",
+            data:{
+                  'street':$('.street').val(),
+                  'street_optional':$(".street_optional").val(),
+                  'city':$(".city").val(),
+                  'departament':$(".departament").val(),
+                  'country':$(".country").val(),
+                  'postcode':$(".postcode").val()
+
+            },
+            success:function(e){
+              $("#address_house").css('display','none')
+              $("#info_1").css('display','block')
+            }
+          })
+        }
+        else{
+          $.gritter.add({
+            title: 'EXISTOSO',
+            text: 'Lo sentimos aun no prestamos servicio para esa ciudad',
+            time:'3000'
+          });
+        }
+      }
+      else{
+        $.gritter.add({
+            title: 'EXISTOSO',
+            text: 'Lo sentimos aun no prestamos servicio para ese depatamamento',
+            time:'3000'
+          });
+      }
+    })
+
+    $(".next").click(function(){
+       $("#info_1").css('display','none')
+       $("#elements").css('display','block')
+    })
+
+    $(".elements_kit").on('click',function(){
+      id = this.id
+      $.ajax({
+        url:"{% url 'Elements' %}",
+        data:{'id':id},
+        success:function(){
+          if( $(".elements_kit"+id).hasClass("border") ){
+            $(".elements_kit"+id).removeClass("border");
+          }
+          else{
+            $(".elements_kit"+id).addClass("border");
+          }
+        }
+      })
+      
+    })
+
+    $(".next_element").click(function(){
+      $("#elements").css("display",'none')
+      $("#photos").css("display",'block')
+    })
+
+    $(".next_photo").click(function(){
+      $("#photos").css("display",'none')
+      $("#title-home").css("display",'block')
+    })
+
+    $(".next_title").click(function() {
+      $.ajax({
+        url:"{% url 'UpdateTitle' %}",
+        data:{'title':$("#area").val()},
+        success:function(){
+          $("#title-home").css("display",'none')
+          $("#description-home").css("display",'block')
+        }
+      })
+    })
+
+    $("#description").keydown(function(e){
+      code = e.keyCode
+      console.log(code === 8)
+      if(code === 8){
+        if(n > 0){
+          $("#count_letter_description").text(n -= 1)
+        }
+      }
+      if(n < 500 && code !== 8){
+        $("#count_letter_description").text(n += 1)
+      }
+    })
+
+    $(".next_description").click(function() {
+      $.ajax({
+        url:"{% url 'UpdateDescription' %}",
+        data:{'title':$("#description").val()},
+        success:function(){
+          $("#description-home").css("display",'none')
+          $("#end-process").css("display",'block')
+        }
+      })
+    })
+
+    $(".next_end").click(function(){
+      $("#end-process").css("display",'none')
+      $("#select-resident").css("display",'block')
+    })
+
+    $(".response_resident").on('click',function(){
+      id = this.id
+      $(".response_resident"+id).addClass("border");
+      $("#select-resident").css("display",'none')
+      $("#price").css("display",'block')
+    })
+
+    $(".botones").on('click',function(){
+      id = this.id
+      price = parseInt($(".price_value").val().replace('$',''))
+      if(id === "pluss"){
+        price = price += 1
+        $(".price_value").val('$'+price.toString())
+      }else{
+        price = price -= 1
+        $(".price_value").val('$'+price.toString())
+      }
+    })
+
+    $(".next_price").click(function(){
+      $.ajax({
+        url:'{% url "UpdatePrice" %}',
+        data:{'price':$(".price_value").val().replace('$',''),'fee_start':$(".fee_start").val().replace('$',''),'price_clean':$(".price_clean").val().replace('$','')},
+        success:function(data){
+          location.href = "{% url 'Detaild_ADS' 0 %}"
+        }
+      })
+    })
+
+  })
+</script>
+
+{% endblock %}
+
+
+
+
+

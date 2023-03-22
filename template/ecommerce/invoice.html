@@ -1,0 +1,134 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="card mb-3">
+    <div class="card-body">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-md">
+          <h5 class="mb-2 mb-md-0">Orden #{{last_orden.number_order}}</h5>
+        </div>
+        <div class="col-auto">
+          <!-- <button class="btn btn-falcon-default btn-sm me-1 mb-2 mb-sm-0" type="button"><span class="fas fa-arrow-down me-1"> </span>Descargar (.pdf)</button> -->
+          <button class="btn btn-falcon-default btn-sm me-1 mb-2 mb-sm-0" type="button" onclick="javascript:print();"><span class="fas fa-print me-1"> </span>Imprimir</button>
+          <!-- <button class="btn btn-falcon-success btn-sm mb-2 mb-sm-0" type="button"><span class="fas fa-dollar-sign me-1"></span>Receive Payment</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row align-items-center text-center mb-3">
+        <div class="col-sm-6 text-sm-start"><img src="{% static 'assets/img/logos/logo-invoice.png' %}" alt="invoice" width="150" /></div>
+        <div class="col text-sm-end mt-3 mt-sm-0">
+          <h2 class="mb-3">Orden de Pedido</h2>
+          <h5>{{last_orden.user_sells.user|title}}</h5>
+          <p class="fs--1 mb-0">{{last_orden.user_sells.address}}</p>
+          <p class="fs--1 mb-0">Teléfono:&nbsp;&nbsp;{{last_orden.user_sells.phone}}</p>
+        </div>
+        <div class="col-12">
+          <hr />
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col">
+          <h6 class="text-500">Orden para:</h6>
+          <h5>{{last_orden.enviar_a.receiving_user|title}}</h5>
+          <p class="fs--1">{{last_orden.enviar_a.address}}</p>
+          <p class="fs--1">
+          	<!-- <a href="mailto:{{last_orden.user_buy.email}}">{{last_orden.enviar_a.email}}</a><br/> -->
+          	<a href="tel:{{last_orden.user_buy.phone}}">{{last_orden.enviar_a.phone}}</a>
+          </p>
+        </div>
+        <div class="col-sm-auto ms-auto">
+          <div class="table-responsive">
+            <table class="table table-sm table-borderless fs--1">
+              <tbody>
+                <tr>
+                  <th class="text-sm-end">Orden N°:</th>
+                  <td>{{last_orden.number_order}}</td>
+                </tr>
+                <!-- <tr>
+                  <th class="text-sm-end">Order Numbero:</th>
+                  <td>AD20294</td>
+                </tr> -->
+                <tr>
+                  <th class="text-sm-end">Fecha:</th>
+                  <td>{{last_orden.date}}</td>
+                </tr>
+                <tr>
+                  <th class="text-sm-end">Forma de Págo:</th>
+                  <td>{{pf}}</td>
+                </tr>
+                <!-- <tr>
+                  <th class="text-sm-end">Forma de Págo:</th>
+                  <td>Al recibir</td>
+                </tr> -->
+                <tr class="alert-success fw-bold">
+                  <th class="text-sm-end">Total a pagar:</th>
+                  <td>${{total}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive scrollbar mt-4 fs--1">
+        <table class="table table-striped border-bottom">
+          <thead class="light">
+            <tr class="bg-primary text-white dark__bg-1000">
+              <th class="border-0">Productos</th>
+              <th class="border-0 text-center">Cantidad</th>
+              <!-- <th class="border-0 text-end"> asdad</th> -->
+              <th class="border-0 text-end">Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in all_orden %}
+              <tr>
+                <td class="align-middle">
+                  <h6 class="mb-0 text-nowrap">{{i.product}}</h6>
+                  <!-- <p class="mb-0">Down 35mb, Up 100mb</p> -->
+                </td>
+                <td class="align-middle text-center">{{i.quanty}}</td>
+                <!-- <td class="align-middle text-end">$65.00</td> -->
+                <td class="align-middle text-end">${{i.price}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <table class="table table-sm table-borderless fs--1 text-end">
+            <tr>
+              <th class="text-900">Subtotal:</th>
+              <td class="fw-semi-bold">${{subtotal}} </td>
+            </tr>
+            <tr>
+              <th class="text-900">Envío:</th>
+              <td class="fw-semi-bold">${{shipping_price}}</td>
+            </tr>
+            <tr class="border-top">
+              <th class="text-900">Total:</th>
+              <td class="fw-semi-bold">${{total}}</td>
+            </tr>
+            <tr class="border-top border-top-2 fw-bolder text-900">
+              <th>Total a Pagar:</th>
+              <td>${{total}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-light">
+      <p class="fs--1 mb-0"><strong>Notas: </strong>Realmente apreciamos su negocio y si hay algo más que podamos hacer, ¡háganoslo saber! </p>
+    </div>
+  </div>
+
+{% endblock %}
+{% block script %}
+<script>
+  $(".value_cart").val('{{request.session.carrito}}')
+</script>
+{% endblock %}

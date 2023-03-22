@@ -1,0 +1,181 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="card mb-3">
+	<img class="card-img-top" src="{% static 'assets/img/generic/13.jpg' %}" alt="" />
+	<div class="card-body">
+	  <div class="row justify-content-between align-items-center">
+	    <div class="col">
+	      <div class="d-flex">
+	        <div class="calendar me-2"><span class="calendar-month">Dec</span><span class="calendar-day">25 </span></div>
+	        <div class="flex-1 fs--1">
+	          <h5 class="fs-0">{{r.propertys.title}}</h5>
+	          <p class="mb-0">by <a href="#!">{{r.propietrio.first_name}}</a></p><span class="fs-0 text-warning fw-semi-bold">Noche: {{r.days}} * Precio: ${{r.Price}} = {{r.Total_Payment}}</span>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="col-md-auto mt-4 mt-md-0">
+	      <button class="btn btn-falcon-default btn-sm me-2" type="button"><span class="fas fa-heart text-danger me-1"></span>235</button>
+	      <button class="btn btn-falcon-default btn-sm me-2" type="button"><span class="fas fa-share-alt me-1"></span>Share</button>
+	      <button class="btn btn-falcon-primary btn-sm px-4 px-sm-5" type="button">Register</button>
+	    </div>
+	  </div>
+	</div>
+  </div>
+  <div class="row g-0">
+    <div class="col-lg-8 pe-lg-2">
+      <div class="card mb-3 mb-lg-0">
+        <div class="card-body">
+          <h5 class="fs-0 mb-3">{{r.title}}</h5>
+          <p>{{r.propertys.description}}</p>
+
+          <h5 class="fs-0 mt-5 mb-2">Componentes</h5>
+
+          {% if i1.wifi %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Wi-fi</a>
+          {% endif %}
+
+          {% if i1.tv %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">TV</a>
+          {% endif %}
+
+          {% if i1.kitchen %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Cocina</a>
+          {% endif %}
+
+          {% if i1.parking %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Estacionamiento</a>
+          {% endif %}
+
+          {% if i1.washing_machine %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Lavadora</a>
+          {% endif %}
+
+          {% if i1.air_conditioning %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Aire Acondicionado</a>
+          {% endif %}
+
+          {% if i1.work_zone %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Zona de trabajo</a>
+          {% endif %}
+
+          <!-- asaaadad -->
+
+          {% if i2.pool %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Piscina</a>
+          {% endif %}
+
+          {% if i2.jacuzzi %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Jacuzzy</a>
+          {% endif %}
+
+          {% if i2.terrace %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Terraza</a>
+          {% endif %}
+
+          {% if i2.grill %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Parrilla</a>
+          {% endif %}
+
+          {% if i2.outdoor %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Exterior</a>
+          {% endif %}
+
+          {% if i2.campfire_place %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Lugar Fogata</a>
+          {% endif %}
+
+          {% if i2.pool_table %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Mesa de Billar</a>
+          {% endif %}
+
+          {% if i2.indoor %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Interior</a>
+          {% endif %}
+
+          {% if i2.piano %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Piano</a>
+          {% endif %}
+
+          {% if i2.exersice %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">GYM</a>
+          {% endif %}
+
+          {% if i2.lake %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Lago</a>
+          {% endif %}
+
+          {% if i2.beach %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Playa</a>
+          {% endif %}
+
+          {% if i2.entrace %}
+          	<a class="badge border link-secondary me-1 text-decoration-none" href="javascript:void(0);">Entrada</a>
+          {% endif %}
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 ps-lg-2">
+      <div class="sticky-sidebar">
+        <div class="card mb-3 fs--1">
+          <div class="card-body">
+            <h6>Fecha de estadia</h6>
+            <p class="mb-1">Mon, Dec 31, 2018, 11:59 PM – <br />Tue, Jan 1, 2019, 12:19 AM EST</p>
+            <a href="#!">Add to Calendar</a>
+            <h6 class="mt-4">Location</h6>
+            <div class="mb-1">
+            	oston Harborwalk<br />Christopher Columbus Park<br />Boston, MA 02109<br />United States
+            </div>
+            <a href="#view-map">View Map</a>
+            <h6 class="mt-4">Refund Policy</h6>
+            <p class="fs--1 mb-0">No Refunds</p>
+          </div>
+        </div>
+        <div class="card mb-3 mb-lg-0">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">Events you may like</h5>
+          </div>
+          <div class="card-body fs--1">
+            <div class="d-flex btn-reveal-trigger">
+              <div class="calendar"><span class="calendar-month">Feb</span><span class="calendar-day">21</span></div>
+              <div class="flex-1 position-relative ps-3">
+                <h6 class="fs-0 mb-0"><a href="../../app/events/event-detail.html">Newmarket Nights</a></h6>
+                <p class="mb-1">Organized by <a href="#!" class="text-700">University of Oxford</a></p>
+                <p class="text-1000 mb-0">Time: 6:00AM</p>
+                <p class="text-1000 mb-0">Duration: 6:00AM - 5:00PM</p>Place: Cambridge Boat Club, Cambridge
+                <div class="border-dashed-bottom my-3"></div>
+              </div>
+            </div>
+            <div class="d-flex btn-reveal-trigger">
+              <div class="calendar"><span class="calendar-month">Dec</span><span class="calendar-day">31</span></div>
+              <div class="flex-1 position-relative ps-3">
+                <h6 class="fs-0 mb-0"><a href="../../app/events/event-detail.html">31st Night Celebration</a></h6>
+                <p class="mb-1">Organized by <a href="#!" class="text-700">Chamber Music Society</a></p>
+                <p class="text-1000 mb-0">Time: 11:00PM</p>
+                <p class="text-1000 mb-0">280 people interested</p>Place: Tavern on the Greend, New York
+                <div class="border-dashed-bottom my-3"></div>
+              </div>
+            </div>
+            <div class="d-flex btn-reveal-trigger">
+              <div class="calendar"><span class="calendar-month">Dec</span><span class="calendar-day">16</span></div>
+              <div class="flex-1 position-relative ps-3">
+                <h6 class="fs-0 mb-0"><a href="../../app/events/event-detail.html">Folk Festival</a></h6>
+                <p class="mb-1">Organized by <a href="#!" class="text-700">Harvard University</a></p>
+                <p class="text-1000 mb-0">Time: 9:00AM</p>
+                <p class="text-1000 mb-0">Location: Cambridge Masonic Hall Association</p>Place: Porter Square, North Cambridge
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bg-light p-0 border-top">
+          	<a class="btn btn-link d-block w-100" href="../../app/events/event-list.html">All Events<span class="fas fa-chevron-right ms-1 fs--2"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

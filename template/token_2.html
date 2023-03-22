@@ -1,0 +1,209 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div id="site">
+
+  <header>
+    <h1 data-splitting class="heading">El token expirado, favor solicitar otro.</h1>
+  </header>
+
+  <section>
+    <figure>
+      <img src="https://source.unsplash.com/random/800x650?tech" alt="">
+    </figure>
+  </section>
+
+</div>
+<link rel="stylesheet" type="text/css" href="https://codepen.io/dannievinther/pen/af7e27ae86cdc49fbf85e54ae30c50eb.css">
+<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+<style type="text/css">
+	@font-face {
+	  font-family: walsheim-pro;
+	  font-display: swap;
+	  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/3794/GT-Walsheim-Pro-Regular.woff2') format('woff2');
+	  font-weight: 400;
+	}
+
+	@font-face {
+	  font-family: walsheim-pro;
+	  font-display: swap;
+	  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/3794/GT-Walsheim-Pro-Bold.woff2') format('woff2');
+	  font-weight: 700;
+	}
+
+
+	:root {
+	  --easing: cubic-bezier(.5, 0, .5, 1);
+	  --accent: #ffed00;
+	  --hh: 5rem;
+	}
+
+	#site {
+	  min-height: 100%;
+	}
+
+	header {
+	  display: grid;
+	  position: -webkit-sticky;
+	  position: sticky;
+	  top: 0;
+	  /*margin-top: calc(var(--hh) * -1);*/
+	  height: var(--hh);
+	  background: #2a2139;
+	  box-shadow: 0px 1px 7px 0px rgba(13,23,38,0.07);
+	  z-index: 1;
+	}
+
+	#site::before {
+	  content: '';
+	  grid-area: 1 / 1;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background: #fff;
+	  background: #2a2139;
+	  /*box-shadow: 0px 1px 7px 0px rgba(13,23,38,0.07);*/
+	  transform-origin: 0 0;
+	  transform: scaleY(var(--sY, 0));
+	  transition: .71s .71s var(--easing);
+	  will-change: transform;
+	  pointer-events: none;
+	  z-index: 1;
+	}
+
+	h1 {
+	  place-self: center;
+	  width: max-content;
+	  line-height: 0.8;
+	  /*text-transform: uppercase;*/
+	  font-size: 2rem;
+	  padding: 1rem;
+	  font-family: walsheim-pro, system-ui;
+	  font-weight: 700;
+	  letter-spacing: 1px;
+	  opacity: var(--o, 0);
+	  transition: transform .6s .7s var(--easing);
+	  transform:
+	    translateX(var(--tX, 0))
+	    translateY(var(--tY, 0))
+	    scale(var(--scale, 1));
+	  will-change: transform;
+	}
+
+	section {
+	  /*background: url('https://source.unsplash.com/random/1280x1080?tech') 50% 50% / cover;*/
+	  opacity: 1;
+	  transition: .6s 1.4s linear;
+	  will-change: opacity;
+	}
+
+	[data-loaded] section {
+	  opacity: 1;
+	}
+
+	figure {
+	  max-width: 600px;
+	  margin: 2rem auto;
+	}
+
+	img {
+	  border-radius: 10px;
+	}
+
+	/* Not loaded state styles */
+	@media (prefers-reduced-motion: no-preference) {
+	#site:not([data-loaded]) {
+	  --tX: 0;
+	  --tY: calc(50vh - 50%);
+	  --scale: 1.6;
+	  --sY: 1;
+
+	  height: 100vh;
+	  overflow: hidden;
+	}
+	  }
+
+	#site[data-dom] {
+	  --o: 1;
+	  --anim-name: reveal;
+	}
+
+
+	/* Splitting animation */
+	.char {
+	  --delay: 1s + .02s;
+	  display: inline-block;
+	  animation:
+	    var(--anim-name) .5s cubic-bezier(.5,2,.5,.8) both;
+	  animation-delay:
+	    calc(var(--delay) * var(--char-index));
+	  will-change: transform, opacity;
+	}
+
+	@keyframes reveal {
+	  from {
+	    opacity: 0;
+	    transform: translateX(calc(2px * var(--char-index))) scaleY(calc(.05 * var(--char-index)));
+	  }
+	}
+
+	@media (prefers-reduced-motion) {
+	  *,
+	  *::before,
+	  *::after {
+	    animation-duration: 0.01ms !important;
+	    animation-iteration-count: 1 !important;
+	    transition-duration: 0.01ms !important;
+	    scroll-behavior: auto !important;
+	  }
+	}
+
+
+	html {
+	  height: 100%;
+	}
+
+	body {
+	  min-height: 100%;
+	  background: #f4f0ec;
+	  color: #222d40;
+	  
+	  background: #463866;
+	  color: #fff;
+	}
+</style>
+
+
+
+<script>
+	Splitting();
+
+const site = document.querySelector("#site");
+
+window.addEventListener('DOMContentLoaded', (event) => {    
+  //site.style.setProperty('--anim-name', "reveal");
+  site.dataset.dom = "true";
+});
+
+site.addEventListener('animationend', ({ animationName }) => {
+  if (animationName == "reveal") {
+    site.dataset.loaded = 'true';
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

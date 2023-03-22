@@ -1,0 +1,44 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header bg-light">
+      <div class="row align-items-center">
+        <div class="col-12">
+          <h5 class="mb-0" id="followers">Personas encontradas<span class="d-none d-sm-inline-block">&nbsp;({{number_people}})</span></h5>
+        </div>
+        <div class="col-sm-3 col-8">
+          <form method="post" action="{% url 'Search_People' %}">{% csrf_token %}
+            <div class="row g-0">
+              <div class="col">
+                <input class="form-control form-control-sm" name="search_people" type="search" placeholder="Enter para buscar persona" aria-label="Search" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card-body bg-light px-1 py-0">
+      <div class="row g-0 text-center fs--1">
+      	{% for i in users %}
+	        <div class="col-6 col-md-4 col-lg-3 col-xxl-2 mb-1">
+	          <div class="bg-white dark__bg-1100 p-3 h-100">
+	          	<a href="../../pages/user/profile.html">
+	          		<img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm" src="{{i.img_profile.url}}" alt="" width="100" />
+	          	</a>
+	            <h6 class="mb-1">
+	            	<a href="{% url 'Profile' i.pk %}">Nombre: {{i.first_name}} {{i.last_name}}</a>
+	            </h6>
+	            <p class="fs--2 mb-1">
+	            	<a class="text-700" href="#!">Usuario: {{i.user}}</a>
+	            </p>
+	          </div>
+	        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

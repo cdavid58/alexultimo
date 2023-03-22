@@ -1,0 +1,29 @@
+{% load static %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <h3>Agrega algunas fotos de tu casa</h3>
+      <p>Para empezar, necesitarás cinco fotos. Después podrás agregar más o hacer cambios.</p>
+    </div>
+  </div>
+</div><br>
+<form class="dropzone" style="background: none; border: none;" id="myDropzone" method="post">{% csrf_token %}
+  <div class="fallback">
+    <input name="file" type="file" multiple /> 
+  </div>
+  <div class="dz-message" data-dz-message="data-dz-message"> <img class="me-2" src="{% static 'assets/img/icons/cloud-upload.svg' %}" width="25" alt="" />Selecciona tus imagenes</div>
+  <div class="dz-preview dz-file-preview">
+      <div class="dz-details">
+        <div class="dz-filename"><span data-dz-name></span></div>
+        <div class="dz-size" data-dz-size></div>
+        <img data-dz-thumbnail />
+      </div>
+      <div class="dz-success-mark"><span>✔</span></div>
+      <div class="dz-error-mark"><span>✘</span></div>
+      <div class="dz-error-message"><span data-dz-errormessage></span></div>
+  </div>    
+</form>
+
+<div class="row">
+  <button class="btn btn-primary next_photo col-4 ml-auto" >Seguir</button>
+</div>

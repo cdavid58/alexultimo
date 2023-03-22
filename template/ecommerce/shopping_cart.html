@@ -1,0 +1,105 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+      <div class="row justify-content-between">
+        <div class="col-md-auto">
+          <h5 class="mb-3 mb-md-0">Carrito de compras <span class="total_items_header" >{% if total_items <= 1 %}({{total_items}} Articulo){% else %}({{total_items}} Articulos){%endif %}</span></h5>
+        </div>
+        <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2" href="{% url 'List_Product' %}"> <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4"></span>Continuar Comprando</a><a class="btn btn-sm btn-primary" href="{% url 'CheckOut' %}">Verificar</a></div>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="row gx-card mx-0 bg-200 text-900 fs--1 fw-semi-bold">
+        <div class="col-9 col-md-8 py-2">Nombre</div>
+        <div class="col-3 col-md-4">
+          <div class="row">
+            <div class="col-md-4 py-2 d-none d-md-block text-center">Cantidad</div>
+            <div class="col-md-4 py-2 d-none d-md-block text-center">Envio</div>
+            <div class="col-12 col-md-4 text-end py-2">Precio</div>
+          </div>
+        </div>
+      </div>
+      {% for i in cart %}
+        <div class="row gx-card mx-0 align-items-center border-bottom border-200" id="close_tab{{i.pk}}">
+          <div class="col-8 py-3">
+            <div class="d-flex align-items-center">
+            	<a href="../../app/e-commerce/product/product-details.html">
+            		<img class="img-fluid rounded-1 me-3 d-none d-md-block" src="{{i.img}}" alt="" width="60" />
+            	</a>
+              <div class="flex-1">
+                <h5 class="fs-0">
+                	<a class="text-900" href="../../app/e-commerce/product/product-details.html">
+  	              	{{i.product}}
+  	              </a>
+  	          </h5>
+                <div class="fs--2 fs-md--1">
+                	<a class="text-danger delete" id="{{i.pk}}" href="javascript:void(0);">
+                		Eliminar
+                	</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 py-3">
+            <div class="row align-items-center">
+              <div class="col-md-5 d-flex justify-content-end justify-content-md-center order-1 order-md-0">
+                <div>
+                  <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
+                    <button class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="minus">-</button>
+                    <input class="form-control text-center px-2 input-spin-none" type="number" min="1" value="{{i.quanty}}" aria-label="Amount (to the nearest dollar)" style="width: 50px" />
+                    <button class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="plus">+</button>
+                  </div>
+                </div>
+              </div>
+               <div class="col-md-3 d-flex justify-content-center justify-content-md-center order-1 order-md-0">${{i.shipping_price}}
+              </div>
+              <div class="col-md-4 text-end ps-0 order-0 order-md-1 mb-2 mb-md-0 text-600">${{i.total}}</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="row fw-bold gx-card mx-0">
+        <div class="col-9 col-md-8 py-2 text-end text-900">Total</div>
+        <div class="col px-0">
+          <div class="row gx-card mx-0">
+            <div class="col-md-8 py-2 d-none d-md-block text-center total_items">{% if total_items <= 1 %}({{total_items}} Articulo){% else %}({{total_items}} Articulos){%endif %}</div>
+            <div class="col-12 col-md-4 text-end py-2 total">${{total}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-light d-flex justify-content-end">
+      <form class="me-3">
+        <div class="input-group input-group-sm">
+          <input class="form-control" type="text" placeholder="Código promocional" />
+          <button class="btn btn-outline-secondary border-300 btn-sm" type="submit">Aplicar</button>
+        </div>
+      </form><a class="btn btn-sm btn-primary" href="{% url 'CheckOut' %}">Verificar</a>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+
+  <script>
+
+    $(".delete").on('click',function(){
+      id = this.id
+      $.ajax({
+        url:"{% url 'Delete_Product_Shopping_Cart' %}",
+        data:{'pk':id},
+        success:function(data){
+          _data = JSON.parse(data)
+          $.notify("Producto eliminado",'success')
+          $('.value_cart').text(_data[0]['number'])
+          $('#close_tab'+id).remove();
+          $('.total_items').text($(".value_cart").text()+' Articulo')
+          $('.total_items_header').text('('+$(".value_cart").text()+' Articulo)')
+          $(".total").text('$'+_data[0]['total'])
+        }
+      })
+    })
+  </script>
+
+{% endblock %}

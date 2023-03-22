@@ -1,0 +1,205 @@
+{% load static %}
+<style>
+  .elements_kit{
+    text-decoration: none !important;
+  }
+  .img_card{
+    width: 40%;
+    height: 40%;
+  }
+
+  video{
+    width: 80%;
+    height: 80%;
+  }
+
+  @media screen and (width < 800px){
+    .card-title{
+      font-size: 15px;
+    }
+    video{
+      width: 100%;
+      height: 100%;
+    }
+    h3{
+      font-size: 15px;
+    }
+  }
+
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <video autoplay muted>
+        <source src="https://stream.media.muscache.com/H0101WTUG2qWbyFhy02jlOggSkpsM9H02VOWN52g02oxhDVM.mp4?v_q=high">
+      </video>
+    </div>
+    <div class="col-md-6 col-12">
+      <h3>Cuéntale a los huéspedes todo lo que tu espacio tiene para ofrecer</h3>
+      <p>Puedes agregar más comodidades una vez que publiques el anuncio.</p>
+    </div>
+  </div>
+</div><br>
+
+<div class="row light">
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="1" class="elements_kit">
+      <div class="card text-white elements_kit1 bg-primary">
+        <div class="card-body">
+          <div class="card-title">Wifi</div>
+          <img src="{% static 'icons/wifi.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" type="checkbox" id="2" class="elements_kit">
+      <div class="card text-white elements_kit2 bg-success">
+        <div class="card-body">
+          <div class="card-title">TV</div>
+          <img src="{% static 'icons/tv.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="3" class="elements_kit">
+      <div class="card text-white elements_kit3 bg-danger">
+        <div class="card-body">
+          <div class="card-title">Cocina</div>
+          <img src="{% static 'icons/kitchen.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="4" class="elements_kit">
+      <div class="card text-white elements_kit4 bg-warning">
+        <div class="card-body">
+          <div class="card-title">Lavadora</div>
+          <img src="{% static 'icons/washing.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="5" class="elements_kit">
+      <div class="card text-white elements_kit5 bg-info">
+        <div class="card-body">
+          <div class="card-title">Estacionamiento</div>
+          <img src="{% static 'icons/parking.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="6" class="elements_kit">
+      <div class="card bg-light elements_kit6">
+        <div class="card-body">
+          <div class="card-title">Aire acondicionado</div>
+
+          <img src="{% static 'icons/air-conditioning.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-6 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="7" class="elements_kit">
+      <div class="card text-white elements_kit7 bg-info">
+        <div class="card-body">
+          <div class="card-title">Zona de trabajo</div>
+          <img src="{% static 'icons/work.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <h3>¿Tienes alguna comodidad destacada?</h3>
+    </div>
+  </div>
+</div><br>
+
+<div class="row light">
+
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="8" class="elements_kit">
+      <div class="card text-white elements_kit8 bg-primary">
+        <div class="card-body">
+          <div class="card-title">Pisina</div>
+          <img src="{% static 'icons/pool.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="9" class="elements_kit">
+      <div class="card text-white elements_kit9 bg-success">
+        <div class="card-body">
+          <div class="card-title">Jacuzzy</div>
+          <img src="{% static 'icons/jacuzzy.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="10" class="elements_kit">
+      <div class="card text-white elements_kit10 bg-danger">
+        <div class="card-body">
+          <div class="card-title">Terraza</div>
+          <img src="{% static 'icons/terrace.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id=11 class="elements_kit">
+      <div class="card text-white elements_kit11 bg-warning">
+        <div class="card-body">
+          <div class="card-title">Parrilla</div>
+          <img src="{% static 'icons/parrilla.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="12" class="elements_kit">
+      <div class="card text-white elements_kit12 bg-info">
+        <div class="card-body">
+          <div class="card-title">Zona de comida</div>
+          <img src="{% static 'icons/food.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="13" class="elements_kit">
+      <div class="card bg-light elements_kit13">
+        <div class="card-body">
+          <div class="card-title">Chimenea</div>
+
+          <img src="{% static 'icons/chimenea.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-4 col-6 col-lg-4 mb-4">
+    <a href="javascript:void(0);" id="14" class="elements_kit">
+      <div class="card text-white elements_kit14 bg-success">
+        <div class="card-body">
+          <div class="card-title">Acceso a la playa</div>
+          <img src="{% static 'icons/beach.png' %}" class="img_card">
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="row">
+  <button class="btn btn-primary next_element col-4 ml-auto" >Seguir</button>
+</div>

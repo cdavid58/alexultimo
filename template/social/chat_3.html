@@ -1,0 +1,325 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="card card-chat overflow-hidden">
+    <div class="card-body d-flex p-0 h-100">
+      <div class="chat-sidebar">
+        <div class="contacts-list scrollbar-overlay">
+          <div class="nav nav-tabs border-0 flex-column" role="tablist" aria-orientation="vertical">
+            {% for i in followers %}
+              <div class="hover-actions-trigger chat-contact nav-item vericar_active" role="tab" id="chat-link-{{i.user.pk}}" data-bs-toggle="tab" data-bs-target="#chat-{{i.user.pk}}" aria-controls="chat-{{i.pk}}" aria-selected="true">
+                <div class="d-md-none d-lg-block">
+                  <div class="dropdown dropdown-active-trigger dropdown-chat">
+                    <button class="hover-actions btn btn-link btn-sm text-400 dropdown-caret-none dropdown-toggle end-0 fs-0 mt-4 me-1 z-index-1 pb-2 mb-n2" type="button" data-boundary="viewport" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-cog" data-fa-transform="shrink-3 down-4"></span></button>
+                    <div class="dropdown-menu dropdown-menu-end border py-2 rounded-2"><a class="dropdown-item" href="#!">Mute</a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Archive</a><a class="dropdown-item text-danger" href="#!">Delete</a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Mark as Unread</a><a class="dropdown-item" href="#!">Something's Wrong</a><a class="dropdown-item" href="#!">Ignore Messsages</a><a class="dropdown-item" href="#!">Block Messages</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex p-3">
+                  <div class="avatar avatar-xl {% if i.user.active %}status-online{% endif %}">
+                    <img class="rounded-circle" src="{{i.user.img_profile.url}}" alt="" />
+
+                  </div>
+                  <div class="flex-1 chat-contact-body ms-2 d-md-none d-lg-block">
+                    <div class="d-flex justify-content-between">
+                      <h6 class="mb-0 chat-contact-title">{{i.user.user|title}}</h6><span class="message-time fs--2">Tue</span>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="chat-contact-content pe-3">{{i.user.user|title}}
+                        
+                      </div>
+                      <div class="position-absolute bottom-0 end-0 hover-hide">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+          </div>
+        </div>
+        <form class="contacts-search-wrapper">
+          <div class="form-group mb-0 position-relative d-md-none d-lg-block w-100 h-100">
+            <input class="form-control form-control-sm chat-contacts-search border-0 h-100" type="text" placeholder="Buscar contacto ..." /><span class="fas fa-search contacts-search-icon"></span>
+          </div>
+          <button class="btn btn-sm btn-transparent d-none d-md-inline-block d-lg-none"><span class="fas fa-search fs--1"></span></button>
+        </form>
+      </div>
+
+
+      <div class="tab-content card-chat-content">
+        {% for i in followers %}
+          <div class="tab-pane card-chat-pane chat_message" id="chat-{{i.user.pk}}" role="tabpanel" aria-labelledby="chat-link-{{i.user.pk}}">
+            <div class="chat-content-header">
+              <div class="row flex-between-center">
+                <div class="col-6 col-sm-8 d-flex align-items-center"><a class="pe-3 text-700 d-md-none contacts-list-show" href="#!">
+                    <div class="fas fa-chevron-left"></div>
+                  </a>
+                  <div class="min-w-0">
+                    <h5 class="mb-0 text-truncate fs-0">{{i.user.user|title}}</h5>
+                    <div class="fs--2 text-400">{% if i.user.active %}Activo en el chat{% else %}No esta conectado en el chat{% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-sm btn-falcon-primary me-2" type="button" data-index="0" data-bs-toggle="tooltip" data-bs-placement="top" title="Start a Call"><span class="fas fa-phone"></span></button>
+                  <button class="btn btn-sm btn-falcon-primary me-2" type="button" data-index="0" data-bs-toggle="tooltip" data-bs-placement="top" title="Start a Video Call"><span class="fas fa-video"></span></button>
+                  <button class="btn btn-sm btn-falcon-primary btn-info" type="button" data-index="{{i.user.pk}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Conversation Information"><span class="fas fa-info"></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="chat-content-body" style="display: inherit;">
+              <div class="conversation-info" data-index="{{i.user.pk}}">
+                <div class="h-100 overflow-auto scrollbar">
+                  <div class="d-flex position-relative align-items-center p-3 border-bottom">
+                    <div class="avatar avatar-xl status-online">
+                      <img class="rounded-circle" src="{{i.user.img_profile.url}}" alt="" />
+
+                    </div>
+                    <div class="flex-1 ms-2 d-flex flex-between-center">
+                      <h6 class="mb-0"><a class="text-decoration-none stretched-link text-700" href="../pages/user/profile.html">{{i.user.user|title}}</a></h6>
+                      <div class="dropdown z-index-1">
+                        <button class="btn btn-link btn-sm text-400 dropdown-toggle dropdown-caret-none me-n3" type="button" id="profile-dropdown-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-cog"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="profile-dropdown-0"><a class="dropdown-item" href="#!">Mute</a>
+                          <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Archive</a><a class="dropdown-item text-danger" href="#!">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="px-3 pt-2">
+                    <div class="nav flex-column font-sans-serif fw-medium"><a class="nav-link d-flex align-items-center py-1 px-0 text-600" href="#!"><span class="conversation-info-icon"><span class="fas fa-search me-1" data-fa-transform="shrink-1 down-3"></span></span>Search in Conversation</a><a class="nav-link d-flex align-items-center py-1 px-0 text-600" href="#!"><span class="conversation-info-icon"><span class="fas fa-pencil-alt me-1" data-fa-transform="shrink-1"></span></span>Edit Nicknames</a><a class="nav-link d-flex align-items-center py-1 px-0 text-600" href="#!"><span class="conversation-info-icon"><span class="fas fa-palette me-1" data-fa-transform="shrink-1"></span></span><span>Change Color</span></a><a class="nav-link d-flex align-items-center py-1 px-0 text-600" href="#!"><span class="conversation-info-icon"><span class="fas fa-thumbs-up me-1" data-fa-transform="shrink-1"></span></span>Change Emoji</a><a class="nav-link d-flex align-items-center py-1 px-0 text-600" href="#!"><span class="conversation-info-icon"><span class="fas fa-bell me-1" data-fa-transform="shrink-1"></span></span>Notifications</a></div>
+                  </div>
+                  <hr class="my-2" />
+                  <div class="px-3" id="others-info-0">
+                    <div class="title" id="shared-media-title-0"><a class="btn btn-link btn-accordion hover-text-decoration-none dropdown-indicator" href="#shared-media-0" data-bs-toggle="collapse" aria-expanded="false" aria-controls="shared-media-0">Shared media</a></div>
+                    <div class="collapse" id="shared-media-0" aria-labelledby="shared-media-title-0" data-parent="#others-info-0">
+                      <div class="row mx-n1">
+                        <div class="col-6 col-md-4 px-1"><a href="../assets/img/chat/1.jpg" data-gallery="images-1"><img class="img-fluid rounded-1 mb-2" src="../assets/img/chat/1.jpg" alt="" /></a></div>
+                        <div class="col-6 col-md-4 px-1"><a href="../assets/img/chat/2.jpg" data-gallery="images-1"><img class="img-fluid rounded-1 mb-2" src="../assets/img/chat/2.jpg" alt="" /></a></div>
+                        <div class="col-6 col-md-4 px-1"> <a href="../assets/img/chat/3.jpg" data-gallery="images-1"><img class="img-fluid rounded-1 mb-2" src="../assets/img/chat/3.jpg" alt="" /></a></div>
+                        <div class="col-6 col-md-4 px-1"> <a href="../assets/img/chat/4.jpg" data-gallery="images-1"><img class="img-fluid rounded-1 mb-2" src="../assets/img/chat/4.jpg" alt="" /></a></div>
+                        <div class="col-6 col-md-4 px-1"> <a href="../assets/img/chat/5.jpg" data-gallery="images-1"><img class="img-fluid rounded-1 mb-2" src="../assets/img/chat/5.jpg" alt="" /></a></div>
+                        <div class="col-6 col-md-4 px-1"> <a href="../assets/img/chat/6.jpg" data-gallery="images-1"><img class="img-fluid rounded-1 mb-2" src="../assets/img/chat/6.jpg" alt="" /></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-content-scroll-area scrollbar cajadechat">
+                
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        {% if number_follow > 0 %}
+          <form class="chat-editor-area form_send_message">
+            <div class="emojiarea-editor outline-none scrollbar message" contenteditable="true"></div>
+            <input class="d-none" type="file" id="chat-file-upload" />
+            <label class="chat-file-upload cursor-pointer" for="chat-file-upload"><span class="fas fa-paperclip"></span></label>
+            <div class="btn btn-link emoji-icon" data-emoji-button="data-emoji-button"><span class="far fa-laugh-beam"></span></div>
+            <button class="btn btn-sm btn-send send_message" type="submit">Send</button>
+          </form>
+        {% else %}
+          <h1 class="col align-self-center">
+            AUN NO TIENES SEGUIDORES
+            <iframe src="https://giphy.com/embed/2WxWfiavndgcM" width="480" height="272" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </h1>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}
+{% block script %}
+<script>
+      // var  options  =   {
+      //     body:   "Tienes una nuevo mensaje",
+      //     icon:   "{% static 'letra.png' %}",
+      //     dir:"{% url 'Chat' %}"
+      // };
+      // notification = new Notification("Evansoft",options);
+
+      function readTextFile(file, callback) {
+          var rawFile = new XMLHttpRequest();
+          rawFile.overrideMimeType("application/json");
+          rawFile.open("GET", file, true);
+          rawFile.onreadystatechange = function() {
+              if (rawFile.readyState === 4 && rawFile.status == "200") {
+                  callback(rawFile.responseText);
+              }
+          }
+          rawFile.send(null);
+      }
+
+      let numMess;
+
+      function colocar(){
+        //usage:
+        $('.cajadechat').empty()
+        readTextFile("{% static 'chat.json' %}", function(text){
+            var data = JSON.parse(text);
+            numMess = data.length
+            for(var i= 0; i < data.length; i++){
+
+              if(data[i]['sender'] != "{{request.session.pk_user}}"){
+                $(".cajadechat").append(`
+                  <div class="d-flex p-3">
+                        <div class="avatar avatar-l me-2">
+                          <a href="http://localhost:8000/user/Profile/${data[i]['recvId']}">
+                            <img class="rounded-circle" src="${data[i]['img_user']}" alt="" />
+                          </a>
+                        </div>
+                        <div class="flex-1">
+                          <div class="w-xxl-75">
+                            <div class="hover-actions-trigger d-flex align-items-center">
+                              <div class="chat-message bg-200 p-2 rounded-2">${data[i]['message']}</div>
+                              <ul class="hover-actions position-relative list-inline mb-0 text-400 ms-2">
+                                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Forward"><span class="fas fa-share"></span></a></li>
+                                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><span class="fas fa-archive"></span></a></li>
+                                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></a></li>
+                                <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><span class="fas fa-trash-alt"></span></a></li>
+                              </ul>
+                            </div>
+                            <div class="text-400 fs--2"><span>${data[i]['time']}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                `)
+              }
+              else{
+
+                $(".cajadechat").append(`
+                  <div class="d-flex p-3">
+                    <div class="flex-1 d-flex justify-content-end">
+                      <div class="w-100 w-xxl-75">
+                        <div class="hover-actions-trigger d-flex flex-end-center">
+                          <ul class="hover-actions position-relative list-inline mb-0 text-400 me-2">
+                            <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Forward"><span class="fas fa-share"></span></a></li>
+                            <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><span class="fas fa-archive"></span></a></li>
+                            <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></a></li>
+                            <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><span class="fas fa-trash-alt"></span></a></li>
+                          </ul>
+                          <div class="bg-primary text-white p-2 rounded-2 chat-message light">
+                            <p class="mb-0">${data[i]['message']}</p>
+                            <a href="../assets/img/chat/1.jpg" data-gallery="gallery-3">
+                              <img class="rounded" src="../assets/img/chat/1.jpg" alt="" width="150">
+                            </a>
+
+                          </div>
+                        </div>
+                        <div class="text-400 fs--2 text-end">${data[i]['time']}<span class="fas fa-check ms-2 text-success"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                `)
+              }
+            }
+        });
+
+      }
+      colocar()
+      
+
+      $(document).ready(function(){
+        window.setInterval(function(){
+            readTextFile("{% static 'chat.json' %}", function(text){
+            var data = JSON.parse(text).pop();
+            if(JSON.parse(text).length > numMess){
+              if(data['sender'] != "{{request.session.pk_user}}"){
+                  $(".cajadechat").append(`
+                    <div class="d-flex p-3">
+                          <div class="avatar avatar-l me-2">
+                            <img class="rounded-circle" src="${data['img_user']}" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <div class="w-xxl-75">
+                              <div class="hover-actions-trigger d-flex align-items-center">
+                                <div class="chat-message bg-200 p-2 rounded-2">${data['message']}</div>
+                                <ul class="hover-actions position-relative list-inline mb-0 text-400 ms-2">
+                                  <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Forward"><span class="fas fa-share"></span></a></li>
+                                  <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><span class="fas fa-archive"></span></a></li>
+                                  <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></a></li>
+                                  <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><span class="fas fa-trash-alt"></span></a></li>
+                                </ul>
+                              </div>
+                              <div class="text-400 fs--2"><span>${data['time']}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  `)
+                }
+                else{
+
+                  $(".cajadechat").append(`
+                    <div class="d-flex p-3">
+                      <div class="flex-1 d-flex justify-content-end">
+                        <div class="w-100 w-xxl-75">
+                          <div class="hover-actions-trigger d-flex flex-end-center">
+                            <ul class="hover-actions position-relative list-inline mb-0 text-400 me-2">
+                              <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Forward"><span class="fas fa-share"></span></a></li>
+                              <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive"><span class="fas fa-archive"></span></a></li>
+                              <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-edit"></span></a></li>
+                              <li class="list-inline-item"><a class="chat-option" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"><span class="fas fa-trash-alt"></span></a></li>
+                            </ul>
+                            <div class="bg-primary text-white p-2 rounded-2 chat-message light">
+                              <p class="mb-0">${data['message']}</p>
+                            </div>
+                          </div>
+                          <div class="text-400 fs--2 text-end">${data['time']}<span class="fas fa-check ms-2 text-success"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  
+                  `)
+                } 
+            }
+            numMess = JSON.parse(text).length
+            console.log("Epale")
+          })
+          },1000)
+      })
+      
+        
+
+      $(".vericar_active")[0].click()
+      let id = $(".vericar_active")[0].id.replace("chat-link-","")
+      
+      $(".vericar_active").on('click',function(){
+        id = this.id.replace('chat-link-','')
+        $.ajax({
+          url:"{% url 'backup_message' %}",
+          data:{'pk':id},
+          success:function(data) {
+            colocar()
+          }
+        })
+      })
+
+      $('.send_message').click(function(e){
+        e.preventDefault()
+        if($(".message").text() != ""){
+          $.ajax({
+            url:"{% url 'Add_Message' %}",
+            data:{'pk':id,'message':$(".message").text()},
+            success:function(data){
+              $('.message').text('')
+              $('.message').focus()        
+            }
+          })
+        }
+        
+      })
+  </script>
+  
+
+{% endblock %}

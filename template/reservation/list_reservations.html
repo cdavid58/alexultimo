@@ -1,0 +1,56 @@
+{% extends '../base.html' %}
+{% block content %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    <div class="row flex-between-end">
+      <div class="col-auto align-self-center">
+        <h5 class="mb-0" data-anchor="data-anchor">Lista de Reservaciones</h5>
+      </div>
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <div class="tab-content">
+      <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
+        <div id="tableExample2" data-list='{"valueNames":["code_property","title_property","total_resident","price","total_price"],"page":10,"pagination":true}'>
+          <div class="table-responsive scrollbar">
+            <table class="table table-bordered table-striped fs--1 mb-0">
+              <thead class="bg-200 text-900">
+                <tr>
+                  <th style="width: 1%;" class="sort" data-sort="code_property">Cod. Reser.</th>
+                  <th style="width: 1%;" class="sort" data-sort="code_property">Cod. Propietario</th>
+                  <th style="width: 20%;" class="sort" data-sort="title_property">Propiedad</th>
+                  <th style="width: 1%;" class="sort" data-sort="total_resident">Total de H.</th>
+                  <th style="width: 2%;" class="sort" data-sort="price">Precio por N.</th>
+                  <th style="width: 2%" class="sort" data-sort="total_price">Total</th>
+                  <th style="width: 8%" data-sort="note">Nota</th>
+                  <th style="width: 5%;">Estatus</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                {% for i in list %}
+                  <tr>
+                    <td class="code_property"><a href="{% url 'Details_Reservation' i.pk %}">{{i.pk}}</a></td>
+                    <td class="code_property"><a href="">{{i.propietrio.code}}</a></td>
+                    <td class="title_property"><a href="">{{i.propertys.title}}</a></td>
+                    <td class="total_resident text-right"><a href="">{{i.adult}}</a></td>
+                    <td class="price text-right"><a href="">${{i.Price}}</a></td>
+                    <td class="total_price text-right">${{i.Total_Payment}}</td>
+                    <td>{% if i.note %}{{i.note|truncatechars:15}}{% else %}Sin nota{% endif %}</td>
+                    <td>{{i.status}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+            <ul class="pagination mb-0"></ul>
+            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

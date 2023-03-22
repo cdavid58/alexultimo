@@ -1,0 +1,181 @@
+<style>
+  .price_value{
+    font-size: 48px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    min-height:1px;
+    font-weight:600;
+    font-family:inherit !important;
+    line-height:80px;
+    appearance:none;
+    text-align:center;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .fee_start{
+    font-size: 48px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    min-height:1px;
+    font-weight:600;
+    font-family:inherit !important;
+    line-height:80px;
+    appearance:none;
+    text-align:center;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .price_clean{
+    font-size: 48px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    min-height:1px;
+    font-weight:600;
+    font-family:inherit !important;
+    line-height:80px;
+    appearance:none;
+    text-align:center;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .botones{
+    -webkit-box-pack: center !important;
+    -webkit-box-align: center !important;
+    -webkit-box-flex: 0 !important;
+    width: 48px !important;
+    height: 48px !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(176, 176, 176) !important;
+    color: rgb(113, 113, 113) !important;
+    font-family: inherit !important;
+    outline: none !important;
+/*    touch-action: manipulation !important;*/
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgb(255, 255, 255) !important;
+    border-radius: 50% !important;
+    top: 15px;
+  }
+
+  .noet{
+    text-align: center;
+  }
+
+  .btn_check{
+    margin-left:25% !important;
+  }
+
+  @media screen and (width < 800px)
+  {
+    .btn_check{
+      margin-left:0%;
+    }
+    .price_value{
+      width: 50%;
+      margin-left: 5%;
+      margin-right: 5%;
+      font-size: 38px;
+
+    }
+    .fee_start{
+      width: 50%;
+      margin-left: 5%;
+      margin-right: 5%;
+      font-size: 38px;
+
+    }
+    .price_clean{
+      width: 50%;
+      margin-left: 5%;
+      margin-right: 5%;
+      font-size: 38px;
+
+    }
+  }
+
+
+
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <h3>Ahora, establece el precio</h3>
+      <p>Puedes cambiarlo cuando quieras.</p>
+    </div>
+  </div>
+</div><br>
+
+<div class="mb-3">
+  <div class="row justify-content-center">
+    <button class="col-1 botones" id="pluss">+</button>
+    <input pattern="[0-9]*" placeholder="$00" value="$80000" class="col-6 price_value" type="text" class="form-control">
+    <button class="col-1 botones" id="less">-</button>
+  </div>
+  <div class="row justify-content-center">
+    por noche
+  </div>
+  <div class="row justify-content-center">
+    <span style="text-align: center !important;">Los precios de espacios como el <br>tuyo en tu zona generalmente varían de $<span id="price_start"></span> a $<span id="price_end"></span>.</span>
+  </div>
+</div>
+
+<div class="mb-3">
+  <div class="row justify-content-center">
+    <button class="col-1 botones" id="pluss">+</button>
+    <input pattern="[0-9]*" placeholder="$00" value="$25000" class="col-6 fee_start" type="text" class="form-control">
+    <button class="col-1 botones" id="less">-</button>
+  </div>
+  <div class="row justify-content-center">
+    <span style="text-align: center !important;">Por hora <br>Tarifa ingreso anticipado (antes de las 3pm)</span>
+  </div>
+</div>
+
+<div class="mb-3">
+  <div class="row justify-content-center">
+    <button class="col-1 botones" id="pluss">+</button>
+    <input pattern="[0-9]*" placeholder="$00" value="$50000" class="col-6 price_clean" type="text" class="form-control">
+    <button class="col-1 botones" id="less">-</button>
+  </div>
+  <div class="row justify-content-center">
+    Mantenimiento<br>
+  </div>
+</div>
+
+
+<!-- <div class="card-body bg-light">
+  <div class="row">
+    <div>
+      <div class="form-check form-switch">
+        <label class="form-check-label" for="flexSwitchCheckChecked">
+          <h4 id="title_note">Consigue reservaciones más rápido</h4>
+        </label>
+        <input class="form-check-input btn_check" type="checkbox" checked />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <p>
+      Ofrece un descuento del 20 % a tus primeros 3 huéspedes para que tu espacio se destaque.
+    </p>
+  </div>
+</div> -->
+
+<br>
+<div class="row">
+  <button class="btn btn-primary next_price col-4 ml-auto" >Finalizar</button>
+</div>

@@ -1,0 +1,50 @@
+{% extends '../base.html' %}
+{% block content %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    <div class="row flex-between-end">
+      <div class="col-auto align-self-center">
+        <h5 class="mb-0" data-anchor="data-anchor">Reporte de propietarios</h5>
+      </div>
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <div class="tab-content">
+      <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
+        <div id="tableExample2" data-list='{"valueNames":["code_property","title_property","total_resident","price","total_price"],"page":10,"pagination":true}'>
+          <div class="table-responsive scrollbar">
+            <table class="table table-bordered table-striped fs--1 mb-0">
+              <thead class="bg-200 text-900">
+                <tr>
+                  <th style="width: 1%;" class="sort" data-sort="code_property">Nombre</th>
+                  <th style="width: 1%;" class="sort" data-sort="code_property">Correo electrónico</th>
+                  <th style="width: 20%;" class="sort" data-sort="title_property">Telefono</th>
+                  <th style="width: 1%;" class="sort" data-sort="total_resident">Total de propiedades</th>
+                  <th style="width: 2%;" class="sort" data-sort="price">Total dinero</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                {% for i in data %}
+                  <tr>
+                    <td class="code_property">{{i.nombre}}</td>
+                    <td class="code_property"><a href="">{{i.email}}</a></td>
+                    <td class="title_property"><a href="">{{i.telefono}}</a></td>
+                    <td class="total_resident text-right"><a href="">{{i.cnt_propiedades}}</a></td>
+                    <td class="price text-right"><a href="">${{i.monto_en_moneda}}</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+            <ul class="pagination mb-0"></ul>
+            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

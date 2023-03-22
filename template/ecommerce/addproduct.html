@@ -1,0 +1,76 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mb-3">
+	<div class="card-body">
+	  <div class="row" style="padding: 10px !important;">
+			<form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" enctype="multipart/form-data" action="" data-dropzone="data-dropzone" method="post">{% csrf_token %}
+				<div class="mb-3">
+				  <label class="form-label" for="exampleFormControlInput1">Nombre del producto</label>
+				  <input class="form-control" id="exampleFormControlInput1" name="name_product" type="text" placeholder="Producto" />
+				</div>
+				<div class="mb-3">
+				  <label class="form-label" for="exampleFormControlInput1">Precio</label>
+				  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Precio" name="price" />
+				</div>
+				<div class="mb-3">
+				  <label class="form-label" for="exampleFormControlInput1">Cantidad Disponible</label>
+				  <input class="form-control" id="exampleFormControlInput1" type="text" value="1" placeholder="Cantidad" name="quanty" />
+				</div>
+				<div class="mb-3">
+				  <label class="form-label" for="exampleFormControlInput1">Costo de envio</label>
+				  <input class="form-control" id="exampleFormControlInput1" type="text" value="0.0" placeholder="Costo de envio" name="shopping_price" />
+				</div>
+				<div class="mb-3">
+				  <label class="form-label" for="exampleFormControlTextarea1">Descripción</label>
+				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="organizerMultiple">Categorias</label>
+					<select class="form-select js-choice Categoria" id="organizerSingle" size="1" name="category" data-options='{"removeItemButton":true,"placeholder":true}'>
+					  <option value="">Seleccione Categoria...</option>
+					  sdad
+					  {% for i in c %}
+					  	<option value="{{i.pk}}">{{i.name}}</option>
+					  {% endfor %}
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="organizerMultiple">SubCategorias</label>
+					<select class="form-select" id="Sub" size="1" name="subcategory" data-options='{"removeItemButton":true,"placeholder":true}'>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="organizerMultiple">Seleccione todas las imagenes del producto</label>
+					<div class="fallback">
+					    <input name="file" class="file form-control" type="file" multiple="multiple"/>
+					</div>
+				</div>
+				<button class="btn btn-primary save_product" type="submit">Guardar Producto</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+{% block script %}
+<script>
+	$(document).ready(function(){
+		$(".Categoria").change(function(){
+			$('#Sub').empty()
+			$.ajax({
+				data:{'pk':$(".Categoria").val()},
+				success: function(data){
+					obj = JSON.parse(data)
+					console.log($('#Sub'))
+					for(var i = 0; i < obj.length; i++){
+						$('#Sub').append(`<option value="${obj[i]['pk']}">${obj[i]['name']}</option>`)
+					}
+				}
+			})
+		})
+	})
+</script>
+{% endblock %}

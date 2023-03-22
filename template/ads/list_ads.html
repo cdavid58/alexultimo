@@ -1,0 +1,126 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
+  <div class="card-header">
+    <div class="row flex-between-center">
+      <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+        <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Orders</h5>
+      </div>
+      <div class="col-8 col-sm-auto ms-auto text-end ps-0">
+        <div class="d-none" id="orders-bulk-actions">
+
+        </div>
+        <div id="orders-actions">
+          <button class="btn btn-falcon-default btn-sm create_ads" type="button">
+            <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
+            <span class="d-none d-sm-inline-block ms-1">Crear un anuncio</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive scrollbar">
+      <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+        <thead class="bg-200 text-900">
+            <tr>
+              <th>
+                <div class="form-check fs-0 mb-0 d-flex align-items-center">
+                  <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-orders-body","actions":"orders-bulk-actions","replacedElement":"orders-actions"}' />
+                </div>
+              </th>
+              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="order" style="width: 7%;">Anuncio</th>
+              <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date" style="width: 7%;">Estado</th>
+              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address" style="width: 50%;">Dirección</th>
+              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status" style="width: 10%;">Precio</th>
+              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status" style="width: 10%;">Descuento</th>
+              <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status" style="width: 10%;">Total</th>
+              <!-- <th class="sort pe-1 align-middle white-space-nowrap text-end" data-sort="amount" style="width: 10%;">Acciones</th> -->
+              <!-- <th class="no-sort"></th> -->
+            </tr>
+        </thead>
+        <tbody class="list" id="table-orders-body">
+          {% for i in property %}
+            <tr class="btn-reveal-trigger">
+              <td class="align-middle" style="width: 28px;">
+                <div class="form-check fs-0 mb-0 d-flex align-items-center">
+                  <input class="form-check-input" type="checkbox" id="checkbox-0" data-bulk-select-row="data-bulk-select-row" />
+                </div>
+              </td>
+              <td class="order py-2 align-middle white-space-nowrap">
+                <a href="{% url 'Detaild_ADS' i.pk %}"> 
+                  <strong>#{{i.pk}}</strong>
+                </a> 
+                por 
+                <strong>
+                  {{i.user.first_name}} {{i.user.last_name}}
+                </strong>
+                <br />
+                <a href="mailto:{{i.email}}">
+                  {{i.user.email}}
+                </a>
+              </td>
+              <td class="status py-2 align-middle text-center fs-0 white-space-nowrap">
+                {% if i.available %}
+                  <span class="badge badge rounded-pill result_status d-block badge-soft-success">Disponible<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                {% else %}
+                  <span class="badge badge rounded-pill result_status d-block badge-soft-warning">Ya reservada</span>
+                {% endif %}
+              </td>
+              <td class="address py-2 align-middle white-space-nowrap">
+                {{i.street}}<br>{{i.city}} - {{i.country}}
+              </td>
+              <td class="amount py-2 align-middle text-end fs-0 fw-medium">${{i.price|floatformat:0}}</td>
+              <td class="amount py-2 align-middle text-end fs-0 fw-medium">{{i.discoun|floatformat:0}}%</td>
+              <td class="amount py-2 align-middle text-end fs-0 fw-medium">${{i.PriceWithDiscount|floatformat:0}}</td>
+             <!--  <td class="py-2 align-middle white-space-nowrap text-end">
+                <div class="dropdown font-sans-serif position-static">
+                  <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
+                  <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                    <div class="bg-white py-2">
+                      <a class="dropdown-item status" href="javascript:void(0);" id="1">No Disponible</a>
+                      <a class="dropdown-item status" href="javascript:void(0);" id="2">Disponible</a>
+                    </div>
+                  </div>
+                </div>
+              </td> -->
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex align-items-center justify-content-center">
+      <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+      <ul class="pagination mb-0"></ul>
+      <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right">             </span></button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+  $(document).ready(function(){
+    $(".create_ads").click(function(){
+      location.href = "{% url 'Create_Ads' %}"
+    })
+
+    $(".status").on('click',function(){
+      id = this.id
+      if(parseInt(id) == 2){
+        $(".result_status").removeClass("badge-soft-warning");
+        $(".result_status").addClass("badge-soft-success");
+        $(".result_status").text('Disponible')
+      }else{
+        $(".result_status").removeClass("badge-soft-success");
+        $(".result_status").addClass("badge-soft-warning");
+        $(".result_status").text('No Disponible ')
+      }
+    })
+
+  })
+</script>
+{% endblock %}
