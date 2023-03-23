@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
+<div class="card mb-3 p-1" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
   <div class="card-header">
     <div class="row flex-between-center">
       <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
@@ -23,7 +23,7 @@
   </div>
   <div class="card-body p-0">
     <div class="table-responsive scrollbar">
-      <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+      <table id="example" class="display fs--1 mb-0 overflow-hidden" style="width:100%">
         <thead class="bg-200 text-900">
             <tr>
               <th>

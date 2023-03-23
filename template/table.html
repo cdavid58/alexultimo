@@ -1,0 +1,41 @@
+{% extends './base.html' %}
+{% block content %}
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
+{% block script %}
+
+<script>
+	$(document).ready(function(){
+		$('#example').DataTable({
+	        paging: true,
+	        ordering: true,
+	        info: true,
+	        stateSave: true,
+	        pagingType: 'simple',
+	        language: {
+	            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+	        }
+	    });
+	})
+</script>
+
+{% endblock %}

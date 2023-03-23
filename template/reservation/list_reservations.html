@@ -14,7 +14,7 @@
       <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
         <div id="tableExample2" data-list='{"valueNames":["code_property","title_property","total_resident","price","total_price"],"page":10,"pagination":true}'>
           <div class="table-responsive scrollbar">
-            <table class="table table-bordered table-striped fs--1 mb-0">
+            <table id="example" class="display fs--1 mb-0 overflow-hidden" style="width:100%">
               <thead class="bg-200 text-900">
                 <tr>
                   <th style="width: 1%;" class="sort" data-sort="code_property">Cod. Reser.</th>
@@ -31,7 +31,7 @@
                 {% for i in list %}
                   <tr>
                     <td class="code_property"><a href="{% url 'Details_Reservation' i.pk %}">{{i.pk}}</a></td>
-                    <td class="code_property"><a href="">{{i.propietrio.code}}</a></td>
+                    <td class="code_property"><a href="">{{i.propietrio.pk}}</a></td>
                     <td class="title_property"><a href="">{{i.propertys.title}}</a></td>
                     <td class="total_resident text-right"><a href="">{{i.adult}}</a></td>
                     <td class="price text-right"><a href="">${{i.Price}}</a></td>

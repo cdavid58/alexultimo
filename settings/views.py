@@ -5,6 +5,8 @@ from property.models import Property
 import sqlite3, pandas as pd
 from .models import *
 from reservation.models import Reservation
+from from_number_to_letters import Thousands_Separator
+
 
 def Reports_property(request):
 	data = [
@@ -32,9 +34,9 @@ def Payment(request):
 		s = Percentage.objects.last().porcentaje_subtotal_reservacion
 		for i in reservation:
 			History_Transaccion(
-				amount_total = i.Total_Payment(),
-				amount_me = i.CargoMe(s),
-				amount_property = i.amount_property(s),
+				amount_total = Thousands_Separator(round(i.Total_Payment())),
+				amount_me = Thousands_Separator(round(i.CargoMe(s))),
+				amount_property = Thousands_Separator(round(i.amount_property(s))),
 				propertys = i.propertys,
 				user = i.propietrio,
 				reservation = i
@@ -42,6 +44,17 @@ def Payment(request):
 		return HttpResponse("")
 
 def List_Pago(request):
-
-	return render(request,'reports/transacciones.html',{'history':History_Transaccion.objects.all()})
+	data = [
+		{
+			"amount_total":i.amount_total,
+			"amount_me":Thousands_Separator(round(i.amount_me)),
+			"amount_property":Thousands_Separator(round(i.amount_property)),
+			"date_register":i.date_register,
+			"property":i.propertys,
+			"user":i.user,
+			"reservation":i.reservation,
+		}
+		for i in History_Transaccion.objects.all()
+	]
+	return render(request,'reports/transacciones.html',{'history':data})
 

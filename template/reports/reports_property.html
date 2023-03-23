@@ -1,7 +1,7 @@
 {% extends '../base.html' %}
 {% block content %}
 
-<div class="card mb-3">
+<div class="card mb-3 p-1">
   <div class="card-header">
     <div class="row flex-between-end">
       <div class="col-auto align-self-center">
@@ -14,7 +14,7 @@
       <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
         <div id="tableExample2" data-list='{"valueNames":["code_property","title_property","total_resident","price","total_price"],"page":10,"pagination":true}'>
           <div class="table-responsive scrollbar">
-            <table class="table table-bordered table-striped fs--1 mb-0">
+            <table id="example" class="display fs--1 mb-0 overflow-hidden" style="width:100%">
               <thead class="bg-200 text-900">
                 <tr>
                   <th style="width: 1%;" class="sort" data-sort="code_property">Nombre</th>

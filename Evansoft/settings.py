@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-z%33eq6&&p_cy@-#lu=&la933ce#ooj#*=onh*3^sj#3*z_)zi
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+PORT = '8787'
 
 # Application definition
 

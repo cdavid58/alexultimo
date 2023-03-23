@@ -1,21 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <style>
       input[type=number]::-webkit-inner-spin-button, 
       input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none; 
         margin: 0; 
       }
-
       input[type=number] { -moz-appearance:textfield; }
     </style>
+
     <title>Evansoft</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'letra.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'letra.png' %}">
@@ -26,6 +24,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="{% static 'assets/js/config.js' %}"></script>
     <script src="{% static 'vendors/overlayscrollbars/OverlayScrollbars.min.js' %}"></script>
+
 
     <link href="{% static 'vendors/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -40,8 +39,6 @@
     <link href="{% static 'vendors/choices/choices.min.css' %}" rel="stylesheet" />
     <script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
     <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Classic-Growl-like-Notification-Plugin-For-jQuery-Gritter/css/jquery.gritter.css">
-
-
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -57,8 +54,11 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
-  </head>
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    
+
+  </head>
 
   <body>
 
@@ -190,6 +190,21 @@
     <script src="{% static 'vendors/dropzone/dropzone.min.js' %}"></script>
     <script src="{% static 'vendors/choices/choices.min.js' %}"></script>
     <script src="https://www.jqueryscript.net/demo/Classic-Growl-like-Notification-Plugin-For-jQuery-Gritter/js/jquery.gritter.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#example').DataTable({
+              paging: true,
+              ordering: true,
+              info: true,
+              stateSave: true,
+              pagingType: 'simple',
+              language: {
+                  url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+              }
+          });
+      })
+    </script>
     {% block script %}{% endblock %}
 
   </body>
